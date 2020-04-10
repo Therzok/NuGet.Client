@@ -37,13 +37,13 @@ namespace NuGet.Frameworks
         }
 
         public NuGetFramework(string framework, Version version)
-            : this(framework, version, null)
+            : this(framework, version, null, FrameworkConstants.EmptyVersion)
         {
         }
 
         private const int Version5 = 5;
 
-        public NuGetFramework(string frameworkIdentifier, Version frameworkVersion, string frameworkProfile)
+        public NuGetFramework(string frameworkIdentifier, Version frameworkVersion, string profile)
         {
             if (frameworkIdentifier == null)
             {
@@ -57,8 +57,34 @@ namespace NuGet.Frameworks
 
             _frameworkIdentifier = frameworkIdentifier;
             _frameworkVersion = NormalizeVersion(frameworkVersion);
-            _frameworkProfile = frameworkProfile ?? string.Empty;
+
             IsNet5Era = (_frameworkVersion.Major >= Version5 && StringComparer.OrdinalIgnoreCase.Equals(FrameworkConstants.FrameworkIdentifiers.NetCoreApp, _frameworkIdentifier));
+
+            _frameworkProfile = profile ?? string.Empty;
+            Platform = string.Empty;
+            PlatformVersion = FrameworkConstants.EmptyVersion;
+        }
+
+        public NuGetFramework(string frameworkIdentifier, Version frameworkVersion, string platform, Version platformVersion)
+        {
+            if (frameworkIdentifier == null)
+            {
+                throw new ArgumentNullException("frameworkIdentifier");
+            }
+
+            if (frameworkVersion == null)
+            {
+                throw new ArgumentNullException("frameworkVersion");
+            }
+
+            _frameworkIdentifier = frameworkIdentifier;
+            _frameworkVersion = NormalizeVersion(frameworkVersion);
+            _frameworkProfile = string.Empty;
+
+            IsNet5Era = (_frameworkVersion.Major >= Version5 && StringComparer.OrdinalIgnoreCase.Equals(FrameworkConstants.FrameworkIdentifiers.NetCoreApp, _frameworkIdentifier));
+
+            Platform = IsNet5Era ? platform ?? string.Empty : string.Empty;
+            PlatformVersion = IsNet5Era ? NormalizeVersion(platformVersion ?? FrameworkConstants.EmptyVersion) : FrameworkConstants.EmptyVersion;
         }
 
         /// <summary>
@@ -75,6 +101,32 @@ namespace NuGet.Frameworks
         public Version Version
         {
             get { return _frameworkVersion; }
+        }
+
+        /// <summary>
+        /// Framework Platform (net5.0+)
+        /// </summary>
+        public string Platform
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Framework Platform Version (net5.0+)
+        /// </summary>
+        public Version PlatformVersion
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// True if the platform is non-empty
+        /// </summary>
+        public bool HasPlatform
+        {
+            get { return !string.IsNullOrEmpty(Platform); }
         }
 
         /// <summary>
@@ -120,9 +172,17 @@ namespace NuGet.Frameworks
 
                 parts.Add(string.Format(CultureInfo.InvariantCulture, "Version=v{0}", GetDisplayVersion(framework.Version)));
 
-                if (!string.IsNullOrEmpty(framework.Profile))
+                if (!IsNet5Era && !string.IsNullOrEmpty(framework.Profile))
                 {
                     parts.Add(string.Format(CultureInfo.InvariantCulture, "Profile={0}", framework.Profile));
+                }
+                if (IsNet5Era && !string.IsNullOrEmpty(framework.Platform))
+                {
+                    parts.Add(string.Format(CultureInfo.InvariantCulture, "Platform={0}", framework.Platform));
+                    if (framework.PlatformVersion != FrameworkConstants.EmptyVersion)
+                    {
+                        parts.Add(string.Format(CultureInfo.InvariantCulture, "PlatformVersion=v{0}", GetDisplayVersion(framework.PlatformVersion)));
+                    }
                 }
 
                 result = string.Join(",", parts);
@@ -216,6 +276,25 @@ namespace NuGet.Frameworks
                             CultureInfo.CurrentCulture,
                             Strings.MissingPortableFrameworks,
                             framework.DotNetFrameworkName));
+                    }
+                }
+                else if (IsNet5Era)
+                {
+                    var shortPlatform = string.Empty;
+                    if (!string.IsNullOrEmpty(framework.Platform) && !mappings.TryGetShortPlatform(framework.Framework, framework.Platform, out shortPlatform))
+                    {
+                        shortPlatform = framework.Platform;
+                    }
+
+                    if (!string.IsNullOrEmpty(shortPlatform))
+                    {
+                        sb.Append("-");
+                        sb.Append(shortPlatform);
+
+                        if (framework.PlatformVersion != FrameworkConstants.EmptyVersion)
+                        {
+                            sb.Append(mappings.GetVersionString(framework.Framework, framework.PlatformVersion));
+                        }
                     }
                 }
                 else

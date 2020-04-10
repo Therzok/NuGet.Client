@@ -10,14 +10,14 @@ namespace NuGet.Test
     {
         [Theory]
         // net5.0 and later is not compat with net1.0 through net 4.x.xxx.
-        // users must use those TFMs via AssetTargetFallback, which will be set 
+        // users must use those TFMs via AssetTargetFallback, which will be set
         [InlineData("net5.0", "net452", false)]
         [InlineData("net5.0", "net462", false)]
         [InlineData("net5.0", "net472", false)]
         [InlineData("net5.0", "net482", false)]
         [InlineData("net50", "net5.0", true)]
         [InlineData("net5.0", "net50", true)]
-        
+
         // netcoreapp 5.0 and later are still valid for now
         [InlineData("netcoreapp5.0", "netcoreapp5.0", true)]
         [InlineData("net5.0", "netcoreapp5.0", true)]
@@ -42,15 +42,28 @@ namespace NuGet.Test
         [InlineData("net5.1", "netcoreapp3.1", true)]
         [InlineData("net6.0", "netcoreapp3.1", true)]
 
-        // net5.0-<osname> is not supported yet
-        [InlineData("net5.0-android", "net5.0", false)]
-        [InlineData("net5.0-android", "netcoreapp3.1", false)]
-        [InlineData("net5.0-ios", "net5.0", false)]
-        [InlineData("net5.0-macos", "net5.0", false)]
-        [InlineData("net5.0-tvos", "net5.0", false)]
-        [InlineData("net5.0-watchos", "net5.0", false)]
-        [InlineData("net5.0-windows", "net5.0", false)]
+        // net5.0-<osname> is compatible with net5.0 but not the inverse
+        [InlineData("net5.0-android", "net5.0", true)]
+        [InlineData("net5.0-android", "netcoreapp3.1", true)]
+        [InlineData("net5.0-ios", "net5.0", true)]
+        [InlineData("net5.0-macos", "net5.0", true)]
+        [InlineData("net5.0-tvos", "net5.0", true)]
+        [InlineData("net5.0-watchos", "net5.0", true)]
+        [InlineData("net5.0-windows", "net5.0", true)]
+        [InlineData("net5.0", "net5.0-android", false)]
+        [InlineData("net5.0", "net5.0-ios", false)]
+        [InlineData("net5.0", "net5.0-macos", false)]
+        [InlineData("net5.0", "net5.0-tvos", false)]
+        [InlineData("net5.0", "net5.0-watchos", false)]
         [InlineData("net5.0", "net5.0-windows", false)]
+
+        // net5.0-<platformA> is not compatible with net5.0-<platformB>
+        [InlineData("net5.0-windows", "net5.0-android", false)]
+        [InlineData("net5.0-android", "net5.0-ios", false)]
+        [InlineData("net5.0-ios", "net5.0-macos", false)]
+        [InlineData("net5.0-macos", "net5.0-tvos", false)]
+        [InlineData("net5.0-tvos", "net5.0-watchos", false)]
+        [InlineData("net5.0-watchos", "net5.0-windows", false)]
 
         // net5.0 profile names cannot be made up. they will not be compat with anything. profile name will be changed to "Unsupported".
         [InlineData("net5.0-madeupname", "net5.0", false)]

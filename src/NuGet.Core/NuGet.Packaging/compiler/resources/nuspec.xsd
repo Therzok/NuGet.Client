@@ -19,6 +19,8 @@
             </xs:element>
         </xs:sequence>
         <xs:attribute name="targetFramework" type="xs:string" use="optional" />
+        <!-- something like this: (not just a single property. might have multiple dgroups. One per group.) -->
+        <xs:attribute name="targetPlatformMinVersion" type="xs:string" use="optional" />
     </xs:complexType>
 
     <xs:complexType name="reference">

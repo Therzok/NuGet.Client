@@ -8,11 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NuGet.Frameworks {
+namespace NuGet.Frameworks
+{
     using System;
     using System.Reflection;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,85 +24,114 @@ namespace NuGet.Frameworks {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
-        
+    internal class Strings
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings() {
+        internal Strings()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NuGet.Frameworks.Strings", typeof(Strings).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Frameworks must have the same identifier, profile, and platform..
         /// </summary>
-        internal static string FrameworkMismatch {
-            get {
+        internal static string FrameworkMismatch
+        {
+            get
+            {
                 return ResourceManager.GetString("FrameworkMismatch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid framework identifier &apos;{0}&apos;..
         /// </summary>
-        internal static string InvalidFrameworkIdentifier {
-            get {
+        internal static string InvalidFrameworkIdentifier
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidFrameworkIdentifier", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid framework version &apos;{0}&apos;..
         /// </summary>
-        internal static string InvalidFrameworkVersion {
-            get {
+        internal static string InvalidFrameworkVersion
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidFrameworkVersion", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid framework platform version &apos;{0}&apos;..
+        /// </summary>
+        internal static string InvalidPlatformVersion
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPlatformVersion", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid portable frameworks &apos;{0}&apos;. A hyphen may not be in any of the portable framework names..
         /// </summary>
-        internal static string InvalidPortableFrameworksDueToHyphen {
-            get {
+        internal static string InvalidPortableFrameworksDueToHyphen
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidPortableFrameworksDueToHyphen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid portable frameworks for &apos;{0}&apos;. A portable framework must have at least one framework in the profile..
         /// </summary>
-        internal static string MissingPortableFrameworks {
-            get {
+        internal static string MissingPortableFrameworks
+        {
+            get
+            {
                 return ResourceManager.GetString("MissingPortableFrameworks", resourceCulture);
             }
         }
