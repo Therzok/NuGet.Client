@@ -227,10 +227,11 @@ namespace NuGet.Test
         [InlineData("netcoreapp3.0", ".NetCoreApp,Version=v3.0")]
         [InlineData("net5.0-android", ".NETCoreApp,Version=v5.0,Platform=Android")]
         [InlineData("net5.0-ios14.0", ".NETCoreApp,Version=v5.0,Platform=iOS,PlatformVersion=v14.0")]
-        [InlineData("net5.0-macos10.0", ".NETCoreApp,Version=v5.0,Platform=MacOS,PlatformVersion=v10.0")]
+        [InlineData("net5.0-macos10.0", ".NETCoreApp,Version=v5.0,Platform=macOS,PlatformVersion=v10.0")]
         [InlineData("net5.0-watchos1.0", ".NETCoreApp,Version=v5.0,Platform=watchOS,PlatformVersion=v1.0")]
         [InlineData("net5.0-tvos1.0", ".NETCoreApp,Version=v5.0,Platform=tvOS,PlatformVersion=v1.0")]
         [InlineData("net5.0-windows10.0", ".NETCoreApp,Version=v5.0,Platform=Windows,PlatformVersion=v10.0")]
+        [InlineData("net5.0-macos10.15.2.3", ".NETCoreApp,Version=v5.0,Platform=macOS,PlatformVersion=v10.15.2.3")]
         public void NuGetFramework_ParseToShortName(string expected, string fullName)
         {
             // Arrange

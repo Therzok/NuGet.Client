@@ -385,7 +385,6 @@ namespace NuGet.Frameworks
                 return null;
             }
 
-            // TODO: profile might actually be a Platform. Figure this out.
             var profileStart = versionStart;
 
             while (profileStart < chars.Length

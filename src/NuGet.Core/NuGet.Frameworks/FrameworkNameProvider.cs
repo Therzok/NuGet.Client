@@ -127,9 +127,9 @@ namespace NuGet.Frameworks
             return TryConvertOrNormalize(profileShortName, _profileShortToLong, _profilesToShortName, out profile);
         }
 
-        public bool TryGetPlatform(string frameworkIdentifier, string platformShortName, out string platform)
+        public bool TryGetPlatform(string platformShortName, out string platformIdentifier)
         {
-            return TryConvertOrNormalize(platformShortName, _platformShortToLong, _platformToShortName, out platform);
+            return TryConvertOrNormalize(platformShortName, _platformShortToLong, _platformToShortName, out platformIdentifier);
         }
 
         public bool TryGetShortIdentifier(string identifier, out string identifierShortName)
@@ -142,9 +142,9 @@ namespace NuGet.Frameworks
             return TryConvertOrNormalize(profile, _profilesToShortName, _profileShortToLong, out profileShortName);
         }
 
-        public bool TryGetShortPlatform(string frameworkIdentifier, string platform, out string platformShortName)
+        public bool TryGetShortPlatform(string platformIdentifier, out string platformShortName)
         {
-            return TryConvertOrNormalize(platform, _platformToShortName, _platformShortToLong, out platformShortName);
+            return TryConvertOrNormalize(platformIdentifier, _platformToShortName, _platformShortToLong, out platformShortName);
         }
 
         public bool TryGetVersion(string versionString, out Version version)
@@ -207,9 +207,9 @@ namespace NuGet.Frameworks
                     versionParts.Pop();
                 }
 
-                // TODO: This comment needs to be updated (maybe the code, too)
-                // Always use decimals and 2+ digits for dotnet, netstandard, netstandardapp,
-                // netcoreapp, or if any parts of the version are over 9 we need to use decimals
+                // Always use decimals and 2+ digits for netstandard and
+                // netcoreapp, or if any parts of the version are over 9
+                // we need to use decimals
                 if (string.Equals(
                         framework,
                         FrameworkConstants.FrameworkIdentifiers.NetCoreApp,

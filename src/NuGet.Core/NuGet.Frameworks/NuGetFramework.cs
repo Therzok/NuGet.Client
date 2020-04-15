@@ -43,6 +43,9 @@ namespace NuGet.Frameworks
 
         private const int Version5 = 5;
 
+        /// <summary>
+        /// Creates a new NuGetFramework instance, with an optional profile (only available for netframework)
+        /// </summary>
         public NuGetFramework(string frameworkIdentifier, Version frameworkVersion, string profile)
         {
             if (frameworkIdentifier == null)
@@ -65,6 +68,9 @@ namespace NuGet.Frameworks
             PlatformVersion = FrameworkConstants.EmptyVersion;
         }
 
+        /// <summary>
+        /// Creates a new NuGetFramework instance, with an optional platform and platformVersion (only available for net5.0+)
+        /// </summary>
         public NuGetFramework(string frameworkIdentifier, Version frameworkVersion, string platform, Version platformVersion)
         {
             if (frameworkIdentifier == null)
@@ -75,6 +81,16 @@ namespace NuGet.Frameworks
             if (frameworkVersion == null)
             {
                 throw new ArgumentNullException("frameworkVersion");
+            }
+
+            if (platform == null)
+            {
+                throw new ArgumentNullException("platform");
+            }
+
+            if (platformVersion == null)
+            {
+                throw new ArgumentNullException("platformVersion");
             }
 
             _frameworkIdentifier = frameworkIdentifier;

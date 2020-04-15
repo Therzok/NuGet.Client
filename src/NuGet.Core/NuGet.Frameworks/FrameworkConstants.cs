@@ -41,7 +41,7 @@ namespace NuGet.Frameworks
         {
             public const string Android = "Android";
             public const string IOS = "iOS";
-            public const string MacOS = "MacOS";
+            public const string MacOS = "macOS";
             public const string TvOS = "tvOS";
             public const string WatchOS = "watchOS";
             public const string Windows = "Windows";
