@@ -37,7 +37,7 @@ namespace NuGet.Frameworks
         }
 
         public NuGetFramework(string framework, Version version)
-            : this(framework, version, null, FrameworkConstants.EmptyVersion)
+            : this(framework, version, string.Empty, FrameworkConstants.EmptyVersion)
         {
         }
 
@@ -99,8 +99,8 @@ namespace NuGet.Frameworks
 
             IsNet5Era = (_frameworkVersion.Major >= Version5 && StringComparer.OrdinalIgnoreCase.Equals(FrameworkConstants.FrameworkIdentifiers.NetCoreApp, _frameworkIdentifier));
 
-            Platform = IsNet5Era ? platform ?? string.Empty : string.Empty;
-            PlatformVersion = IsNet5Era ? NormalizeVersion(platformVersion ?? FrameworkConstants.EmptyVersion) : FrameworkConstants.EmptyVersion;
+            Platform = IsNet5Era ? platform : string.Empty;
+            PlatformVersion = IsNet5Era ? NormalizeVersion(platformVersion) : FrameworkConstants.EmptyVersion;
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace NuGet.Frameworks
                 else if (IsNet5Era)
                 {
                     var shortPlatform = string.Empty;
-                    if (!string.IsNullOrEmpty(framework.Platform) && !mappings.TryGetShortPlatform(framework.Framework, framework.Platform, out shortPlatform))
+                    if (!string.IsNullOrEmpty(framework.Platform) && !mappings.TryGetShortPlatform(framework.Platform, out shortPlatform))
                     {
                         shortPlatform = framework.Platform;
                     }

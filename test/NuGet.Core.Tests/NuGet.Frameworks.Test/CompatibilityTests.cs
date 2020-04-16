@@ -60,6 +60,11 @@ namespace NuGet.Test
         [InlineData("net5.0-macos-14", "net5.0", false)]
         [InlineData("net5.0-macos-14..0", "net5.0", false)]
 
+        // net5.0-<platform><lowVersion> is compatible with net5.0-<platform><higherVersion>
+        [InlineData("net5.0-android9.0", "net5.0-android8.0", true)]
+        [InlineData("net5.0-macos10.15.2.3", "net5.0-macos10.15.2.2", true)]
+        [InlineData("net5.0-ios14.0", "net5.0-ios15.0", false)]
+
         // net5.0-<platformA> is not compatible with net5.0-<platformB>
         [InlineData("net5.0-windows", "net5.0-android", false)]
         [InlineData("net5.0-android", "net5.0-ios", false)]
