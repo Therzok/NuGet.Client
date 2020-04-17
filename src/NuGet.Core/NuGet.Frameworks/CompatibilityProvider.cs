@@ -190,7 +190,7 @@ namespace NuGet.Frameworks
             {
                 result = result
                     && StringComparer.OrdinalIgnoreCase.Equals(target.Platform, candidate.Platform)
-                    && IsVersionCompatible(target.Version, candidate.Version);
+                    && IsVersionCompatible(target.PlatformVersion, candidate.PlatformVersion);
             }
 
             return result;

@@ -409,7 +409,6 @@ namespace NuGet.Test
         [InlineData("netcoreapp31", "netcoreapp31")]
         [InlineData("net5.0", "net5.0")]
         [InlineData("net50", "net5.0")]
-        [InlineData("net5.0-android", "net5.0-android")]
         public void NuGetFramework_TryParseCommonFramework_ParsesCommonFrameworks(string frameworkString1, string frameworkString2)
         {
             var framework1 = NuGetFramework.Parse(frameworkString1);

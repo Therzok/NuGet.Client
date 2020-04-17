@@ -174,7 +174,7 @@ namespace NuGet.Frameworks
                 if (version.Major >= 5
                     && StringComparer.OrdinalIgnoreCase.Equals(FrameworkConstants.FrameworkIdentifiers.NetCoreApp, framework))
                 {
-                    result = new NuGetFramework(framework, version, platform, platformVersion);
+                    result = new NuGetFramework(framework, version, platform ?? string.Empty, platformVersion ?? FrameworkConstants.EmptyVersion);
                 }
                 else
                 {
@@ -258,7 +258,7 @@ namespace NuGet.Frameworks
                                     string platform = string.Empty;
                                     // Parse the version if it's there.
                                     Version platformVersion = FrameworkConstants.EmptyVersion;
-                                    if ((platformVersionString == null || mappings.TryGetVersion(platformVersionString, out platformVersion)) && mappings.TryGetPlatform(platformString, out platform))
+                                    if ((string.IsNullOrEmpty(platformVersionString) || mappings.TryGetVersion(platformVersionString, out platformVersion)) && mappings.TryGetPlatform(platformString, out platform))
                                     {
                                         result = new NuGetFramework(framework, version, platform ?? string.Empty, platformVersion ?? FrameworkConstants.EmptyVersion);
                                     }
